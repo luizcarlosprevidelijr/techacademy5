@@ -17,24 +17,27 @@ export const getUserById = async (
 
 export const createUser = async (req: Request, res: Response) => {
 
-    const { name, email, password, cpf} = req.body
+    try {
+        const { name, email, password, cpf} = req.body
 
-    if (!name || name === ''){
-        return res.status(400)
-        .json({error: 'name is required'})
-    }
-    if (!email || email.trim() === "") {
-        return res.status(400).json({ error: "Email is required" });
+        if (!name || name === ''){
+            return res.status(400).json({error: 'name is required'})
+        }
+        if (!email || email.trim() === "") {
+            return res.status(400).json({ error: "Email is required" });
+        }
+        if (!password || password.trim() === "") {
+            return res.status(400).json({ error: "Password is required" });
+        }
+        if (!cpf || cpf.trim() === "") {
+            return res.status(400).json({ error: "CPF is required" });
+        }
+
+        const user = await UserModel.create({name, email, password, cpf})
+        res.status(201).json(user)
+    }catch (error) {
+        res.status(201).json('Erro interno no servidor' + error)
     }
 
-    if (!password || password.trim() === "") {
-        return res.status(400).json({ error: "Password is required" });
     }
-
-    if (!cpf || cpf.trim() === "") {
-        return res.status(400).json({ error: "CPF is required" });
-    }
-
-    const user = await UserModel.create({name, email, password, cpf})
-    res.status(201).json(user)
-}
+   
