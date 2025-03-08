@@ -2,10 +2,10 @@ import { DataTypes, INTEGER, Model } from "sequelize";
 import sequelize from "../config/database";
 
 class UserModel extends Model {
-    id: number | undefined;
-    name: string | undefined;
-    email: string | undefined;
-    password: string | undefined;
+    id: number | undefined
+    name: string | undefined
+    email: string | undefined
+    password: string | undefined
     cpf: string | undefined
 }
 
