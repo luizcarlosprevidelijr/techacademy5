@@ -12,6 +12,12 @@ class UserModel extends Model {
     public async hashPassword() {
         this.password = await bcrypt.hash(this.password!, 10)
     }
+
+    public async validatePassword(password: string) : Promise<boolean> {
+        return await bcrypt.compare(password, this.password!)
+    }
+
+
 }
 
 UserModel.init({
@@ -60,7 +66,7 @@ UserModel.beforeCreate(async (user: UserModel) => {
 UserModel.beforeUpdate(async (user: UserModel) => {
     if (user.changed('password')) {
         await user.hashPassword()
-    }
+    } 
 })
 
 export default UserModel

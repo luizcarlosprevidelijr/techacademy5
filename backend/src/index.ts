@@ -4,6 +4,7 @@ import userRoutes from './routes/userRoutes'
 import sellerRoutes from './routes/sellerRoutes'
 import clientRoutes from './routes/clientRoutes'
 import productRoutes from './routes/productRoutes'
+import loginRoutes from './routes/loginRoutes'
 
 const app = express()
 const port = 3000
@@ -17,6 +18,8 @@ app.use(userRoutes)
 app.use(sellerRoutes)
 app.use(productRoutes)
 app.use(clientRoutes)
+app.use(loginRoutes)
+
 
 
 sequelize
