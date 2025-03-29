@@ -1,0 +1,16 @@
+.styled-link {
+  text-decoration: none;
+  color: #fff;
+  padding: 10px 20px;
+  border-radius: 5px;
+  transition: 0.3s ease;
+  display: inline-block;
+  text-align: center;
+  font-weight: bold;
+}
+
+/* Efeito hover */
+.styled-link:hover {
+  opacity: 0.9;
+  transform: scale(1.05);
+}

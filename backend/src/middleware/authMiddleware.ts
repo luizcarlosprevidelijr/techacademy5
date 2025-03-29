@@ -15,7 +15,11 @@ export const authMiddleware = (
 
     try { 
         const decoded = verifyToken(token);
+<<<<<<< HEAD
         (req as any).user = decoded;
+=======
+        req.body.user = decoded;
+>>>>>>> a93c026 (Adiciona página de login e registro com validação de formulário)
         next()
     }catch(error){ 
         return res.status(401)

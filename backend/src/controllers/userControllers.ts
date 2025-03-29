@@ -7,7 +7,11 @@ export const getAll = async (req: Request, res: Response) => {
 }
 
 export const getUserById = async (
+<<<<<<< HEAD
     req: Request<{ id: number}>,
+=======
+    req: Request<{ id: string}>,
+>>>>>>> a93c026 (Adiciona página de login e registro com validação de formulário)
     res: Response) => {
     const user = await UserModel.findByPk(req.params.id)
     if (!user) {
@@ -80,7 +84,11 @@ export const createUser = async (req: Request, res: Response) => {
         }
 
         export const deleteUserById = async (
+<<<<<<< HEAD
             req: Request<{ id: number}>,
+=======
+            req: Request<{ id: string}>,
+>>>>>>> a93c026 (Adiciona página de login e registro com validação de formulário)
             res: Response) => {
             
                 try{
