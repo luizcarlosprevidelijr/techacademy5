@@ -1,8 +1,11 @@
+import { FormEvent } from "react";
+
 interface StyledFormProps {
   children: React.ReactNode;
+  onSubmit?: (e: FormEvent) => void; // Adiciona a propriedade onSubmit
 }
 
-const StyledForm: React.FC<StyledFormProps> = ({ children }) => {
+const StyledForm: React.FC<StyledFormProps> = ({ children, onSubmit }) => {
   return (
     <div
       style={{
@@ -17,6 +20,7 @@ const StyledForm: React.FC<StyledFormProps> = ({ children }) => {
         boxShadow: "0 4px 15px rgba(0,0,0,0.7)",
         textAlign: "center",
       }}
+      onSubmit={onSubmit} // Passa o onSubmit para o formulário
     >
       <form
         style={{

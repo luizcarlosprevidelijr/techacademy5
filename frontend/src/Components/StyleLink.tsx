@@ -1,13 +1,13 @@
 import { Link } from "react-router";
-import "./StyledLink.css";
+import "./StyleLink.css";
 
-interface StyledLink {
+interface StyleLink {
   to: string;
   children: React.ReactNode;
   bgColor?: string;
 }
 
-const StyledLink = ({ to, children, bgColor = "#4CAF50" }: StyledLink) => {
+const StyleLink = ({ to, children, bgColor = "#4CAF50" }: StyleLink) => {
   return (
     <Link to={to} className="styled-link" style={{ backgroundColor: bgColor }}>
       {children}
@@ -15,4 +15,4 @@ const StyledLink = ({ to, children, bgColor = "#4CAF50" }: StyledLink) => {
   );
 };
 
-export default StyledLink;
+export default StyleLink;

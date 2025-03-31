@@ -1,4 +1,4 @@
-import StyledLink from "../Components/StyledLink";
+import StyledLink from "../Components/StyleLink";
 
 const Home = () => {
   return (

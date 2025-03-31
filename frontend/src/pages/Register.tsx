@@ -1,8 +1,8 @@
 import { useState } from "react";
-import InputLoginRegister from "../Components/Input";
-import StyledLink from "../Components/StyledLink";
-import StyledForm from "../Components/StyledForm";
-import ButtonLoginRegister from "../Components/ButtonLoginRegister";
+import StyleButton from "../Components/StyleButton";
+import StyleLink from "../Components/StyleLink";
+import StyleInput from "../Components/StyleInput";
+import StyleForm from "../Components/StyleForm";
 
 const Register = () => {
   const [email, setEmail] = useState("");
@@ -49,19 +49,19 @@ const Register = () => {
           gap: "10px",
         }}
       >
-        <StyledLink to="/" bgColor="rgb(137, 157, 25)">
+        <StyleLink to="/" bgColor="rgb(137, 157, 25)">
           Home
-        </StyledLink>
+        </StyleLink>
 
-        <StyledLink to="/login" bgColor="#4A90E2">
+        <StyleLink to="/login" bgColor="#4A90E2">
           Entrar
-        </StyledLink>
+        </StyleLink>
       </div>
 
       <h1 style={{ color: "rgb(255, 255, 255)" }}>Registrar</h1>
 
-      <StyledForm>
-        <InputLoginRegister
+      <StyleForm>
+        <StyleInput
           label="Nome"
           type="text"
           value={name}
@@ -69,7 +69,7 @@ const Register = () => {
           validate={validateRequired}
         />
 
-        <InputLoginRegister
+        <StyleInput
           label="CPF"
           type="text"
           value={cpf}
@@ -77,7 +77,7 @@ const Register = () => {
           validate={validateRequired}
         />
 
-        <InputLoginRegister
+        <StyleInput
           label="Email"
           type="email"
           value={email}
@@ -85,7 +85,7 @@ const Register = () => {
           validate={validateRequired}
         />
 
-        <InputLoginRegister
+        <StyleInput
           label="Senha"
           type="password"
           value={password}
@@ -93,13 +93,10 @@ const Register = () => {
           validate={validateRequired}
         />
 
-        <ButtonLoginRegister
-          onClick={handleRegister}
-          bgColor="rgb(239, 150, 150)"
-        >
+        <StyleButton onClick={handleRegister} bgColor="rgb(239, 150, 150)">
           Registrar
-        </ButtonLoginRegister>
-      </StyledForm>
+        </StyleButton>
+      </StyleForm>
     </div>
   );
 };

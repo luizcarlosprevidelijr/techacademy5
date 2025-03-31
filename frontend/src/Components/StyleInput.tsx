@@ -1,7 +1,7 @@
 import { useState } from "react";
-import "./Input.css";
+import "./StyleInput.css";
 
-type InputProps = {
+type StyleInputProps = {
   label: string;
   value: string;
   onChangeValue: (event: React.ChangeEvent<HTMLInputElement>) => void;
@@ -9,13 +9,13 @@ type InputProps = {
   validate?: (value: string) => string | undefined;
 };
 
-const Input = ({
+const StyleInput = ({
   label,
   value,
   onChangeValue,
   type = "text",
   validate,
-}: InputProps) => {
+}: StyleInputProps) => {
   const [errorMessage, setErrorMessage] = useState<string | undefined>(
     undefined
   );
@@ -44,4 +44,4 @@ const Input = ({
   );
 };
 
-export default Input;
+export default StyleInput;

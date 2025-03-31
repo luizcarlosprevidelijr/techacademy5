@@ -1,28 +1,37 @@
 import { useState } from "react";
-import StyledLink from "../Components/StyledLink";
-import InputLoginRegister from "../Components/Input";
-import StyledForm from "../Components/StyledForm";
-import ButtonLoginRegister from "../Components/ButtonLoginRegister";
+import StyleLink from "../Components/StyleLink";
+import StyleForm from "../Components/StyleForm";
+import StyleInput from "../Components/StyleInput";
+import StyleButton from "../Components/StyleButton";
+import { useNavigate } from "react-router";
+import { useAuth } from "../contexts/AuthContext";
+import api from "../services/api";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const { login } = useAuth();
+  const navigate = useNavigate();
 
   const validateRequired = (value: string) => {
     if (!value) return "Campo obrigatório";
     return undefined;
   };
 
-  const handleLogin = () => {
-    if (!email || !password) {
-      alert("Preencha todos os campos!");
-      return;
+  const handleLogin = async (e: React.FormEvent) => {
+    e.preventDefault();
+    try {
+      const response = await api.post("/login", {
+        email: email,
+        password: password,
+      });
+      const token = response.data.accessToken;
+      login(token);
+      navigate("/ownerdashboard");
+    } catch (error) {
+      console.log(error);
+      alert("Erro ao fazer login.");
     }
-
-    console.log("Email:", email);
-    console.log("Senha:", password);
-
-    alert("Login realizado com sucesso!");
   };
 
   return (
@@ -45,13 +54,13 @@ const Login = () => {
           gap: "10px",
         }}
       >
-        <StyledLink to="/" bgColor="rgb(137, 157, 25)">
+        <StyleLink to="/" bgColor="rgb(137, 157, 25)">
           Home
-        </StyledLink>
+        </StyleLink>
 
-        <StyledLink to="/register" bgColor="#4CAF50">
+        <StyleLink to="/register" bgColor="#4CAF50">
           Registrar
-        </StyledLink>
+        </StyleLink>
       </div>
 
       <h1
@@ -64,8 +73,8 @@ const Login = () => {
         Login
       </h1>
 
-      <StyledForm>
-        <InputLoginRegister
+      <StyleForm onSubmit={handleLogin}>
+        <StyleInput
           label="Email"
           type="email"
           value={email}
@@ -73,7 +82,7 @@ const Login = () => {
           validate={validateRequired}
         />
 
-        <InputLoginRegister
+        <StyleInput
           label="Senha"
           type="password"
           value={password}
@@ -81,10 +90,10 @@ const Login = () => {
           validate={validateRequired}
         />
 
-        <ButtonLoginRegister onClick={handleLogin} bgColor="rgb(239, 150, 150)">
+        <StyleButton type="submit" bgColor="rgb(239, 150, 150)">
           Entrar
-        </ButtonLoginRegister>
-      </StyledForm>
+        </StyleButton>
+      </StyleForm>
     </div>
   );
 };
