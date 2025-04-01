@@ -5,7 +5,6 @@ import sellerRoutes from "./routes/sellerRoutes";
 import clientRoutes from "./routes/clientRoutes";
 import productRoutes from "./routes/productRoutes";
 import loginRoutes from "./routes/loginRoutes";
-import registerRoutes from "./routes/registerRoutes";
 import cors from "cors"; // 🔹 Importa o CORS
 
 const app = express();
@@ -30,7 +29,6 @@ app.use(sellerRoutes);
 app.use(productRoutes);
 app.use(clientRoutes);
 app.use(loginRoutes);
-app.use(registerRoutes);
 
 sequelize
   .sync({ alter: true })

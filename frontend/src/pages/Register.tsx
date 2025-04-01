@@ -3,6 +3,8 @@ import StyleButton from "../Components/StyleButton";
 import StyleLink from "../Components/StyleLink";
 import StyleInput from "../Components/StyleInput";
 import StyleForm from "../Components/StyleForm";
+import { useNavigate } from "react-router"; // Correção: useNavigate deve vir de "react-router-dom"
+import api from "../services/api";
 
 const Register = () => {
   const [email, setEmail] = useState("");
@@ -10,23 +12,41 @@ const Register = () => {
   const [name, setName] = useState("");
   const [cpf, setCpf] = useState("");
 
+  const navigate = useNavigate(); // ✅ Correção: Agora o useNavigate está no lugar certo
+
   const validateRequired = (value: string) => {
     if (!value) return "Campo obrigatório";
     return undefined;
   };
 
-  const handleRegister = () => {
-    if (!email || !password || !name || !cpf) {
-      alert("Preencha todos os campos!");
-      return;
+  const validateCpf = (cpf: string) => {
+    const cpfRegex = /^\d{3}\.\d{3}\.\d{3}-\d{2}$/;
+    if (!cpfRegex.test(cpf))
+      return "CPF inválido. Use o formato 000.000.000-00";
+    return undefined;
+  };
+
+  const handleRegister = async (e: React.FormEvent) => {
+    e.preventDefault();
+    try {
+      await api.post(
+        "/users",
+        {
+          name: name,
+          email: email,
+          password: password,
+          cpf: cpf,
+        },
+        {
+          headers: { "Content-Type": "application/json" },
+        }
+      );
+      alert("Cadastro realizado com sucesso! Faça login para continuar.");
+      navigate("/login"); // ✅ Agora vai funcionar corretamente
+    } catch (error) {
+      console.error("Erro ao cadastrar usuário:", error);
+      alert("Erro ao cadastrar. Verifique os dados e tente novamente.");
     }
-
-    console.log(email);
-    console.log(password);
-    console.log(name);
-    console.log(cpf);
-
-    alert("Cadastro realizado com sucesso!");
   };
 
   return (
@@ -60,7 +80,7 @@ const Register = () => {
 
       <h1 style={{ color: "rgb(255, 255, 255)" }}>Registrar</h1>
 
-      <StyleForm>
+      <StyleForm onSubmit={handleRegister}>
         <StyleInput
           label="Nome"
           type="text"
@@ -74,7 +94,7 @@ const Register = () => {
           type="text"
           value={cpf}
           onChangeValue={(event) => setCpf(event.target.value)}
-          validate={validateRequired}
+          validate={validateCpf}
         />
 
         <StyleInput
@@ -93,7 +113,7 @@ const Register = () => {
           validate={validateRequired}
         />
 
-        <StyleButton onClick={handleRegister} bgColor="rgb(239, 150, 150)">
+        <StyleButton type="submit" bgColor="rgb(239, 150, 150)">
           Registrar
         </StyleButton>
       </StyleForm>

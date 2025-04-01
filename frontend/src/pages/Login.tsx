@@ -11,6 +11,7 @@ const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const { login } = useAuth();
+
   const navigate = useNavigate();
 
   const validateRequired = (value: string) => {
@@ -25,7 +26,7 @@ const Login = () => {
         email: email,
         password: password,
       });
-      const token = response.data.accessToken;
+      const token = response.data.token;
       login(token);
       navigate("/ownerdashboard");
     } catch (error) {

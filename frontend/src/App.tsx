@@ -4,7 +4,6 @@ import Login from "./pages/Login";
 import Register from "./pages/Register";
 import OwnerDashboard from "./pages/OwnerDashboard";
 import PrivateRoute from "./Components/PrivateRoute";
-import SellerPage from "./pages/Seller";
 
 function App() {
   return (
@@ -22,7 +21,6 @@ function App() {
           }
         >
           <Route path="/ownerdashboard" element={<OwnerDashboard />} />
-          <Route path="/seller" element={<SellerPage />} />
         </Route>
       </Routes>
     </BrowserRouter>

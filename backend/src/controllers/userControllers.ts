@@ -24,13 +24,13 @@ export const createUser = async (req: Request, res: Response) => {
     if (!name || name === "") {
       return res.status(400).json({ error: "name is required" });
     }
-    if (!email || email.trim() === "") {
+    if (!email || email === "") {
       return res.status(400).json({ error: "Email is required" });
     }
-    if (!password || password.trim() === "") {
+    if (!password || password === "") {
       return res.status(400).json({ error: "Password is required" });
     }
-    if (!cpf || cpf.trim() === "") {
+    if (!cpf || cpf === "") {
       return res.status(400).json({ error: "CPF is required" });
     }
 
