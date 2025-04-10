@@ -5,6 +5,7 @@ interface StyleButtonProps {
   children: React.ReactNode;
   bgColor?: string;
   type?: "button" | "submit" | "reset";
+  disabled?: boolean;
 }
 
 const StyleButton: React.FC<StyleButtonProps> = ({
@@ -12,6 +13,7 @@ const StyleButton: React.FC<StyleButtonProps> = ({
   children,
   bgColor,
   type = "button", // Default to "button" if not provided
+  disabled,
 }) => {
   return (
     <button
@@ -19,6 +21,7 @@ const StyleButton: React.FC<StyleButtonProps> = ({
       onClick={onClick}
       className="button"
       style={{ backgroundColor: bgColor }}
+      disabled={disabled}
     >
       {children}
     </button>

@@ -1,18 +1,19 @@
 import express from "express";
 import {
   getAll,
-  getsSellerById,
+  getSellerById,
   createSeller,
   deleteSellerById,
   updateSeller,
 } from "../controllers/sellerControllers";
+import { authMiddleware } from "../middleware/authMiddleware";
 
 const router = express.Router();
 
 router.get("/sellers", getAll);
-router.get("/sellers/:id", getsSellerById);
-router.post("/sellers/", createSeller);
-router.put("/sellers/:id", updateSeller);
-router.delete("/sellers/:id", deleteSellerById);
+router.get("/sellers/:id", authMiddleware, getSellerById);
+router.post("/sellers", authMiddleware, createSeller);
+router.put("/sellers/:id", authMiddleware, updateSeller);
+router.delete("/sellers/:id", authMiddleware, deleteSellerById);
 
 export default router;

@@ -31,7 +31,7 @@ app.use(clientRoutes);
 app.use(loginRoutes);
 
 sequelize
-  .sync({ alter: true })
+  .sync({ alter: false })
   .then(() => {
     console.log("database foi sincronizado com sucesso");
   })

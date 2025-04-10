@@ -1,17 +1,19 @@
 import { useState } from "react";
-import StyleLink from "../Components/StyleLink";
-import StyleForm from "../Components/StyleForm";
-import StyleInput from "../Components/StyleInput";
-import StyleButton from "../Components/StyleButton";
+import StyleForm from "../components/StyleForm";
+import StyleInput from "../components/StyleInput";
+import StyleButton from "../components/StyleButton";
 import { useNavigate } from "react-router";
 import { useAuth } from "../contexts/AuthContext";
 import api from "../services/api";
+import { Eye, EyeOff } from "lucide-react";
+import StyleLink from "../components/StyleLink";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const { login } = useAuth();
+  const [showPassword, setShowPassword] = useState(false);
 
+  const { login } = useAuth();
   const navigate = useNavigate();
 
   const validateRequired = (value: string) => {
@@ -19,19 +21,39 @@ const Login = () => {
     return undefined;
   };
 
+  const validateEmail = (email: string) => {
+    const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return regex.test(email);
+  };
+
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
+
+    if (!validateEmail(email)) {
+      alert("Digite um e-mail válido.");
+      return;
+    }
+
     try {
       const response = await api.post("/login", {
-        email: email,
-        password: password,
+        email,
+        password,
       });
+
       const token = response.data.token;
-      login(token);
+      login(token); // Armazena no localStorage (via AuthContext)
       navigate("/ownerdashboard");
-    } catch (error) {
-      console.log(error);
-      alert("Erro ao fazer login.");
+    } catch (error: unknown) {
+      if (error && typeof error === "object" && "response" in error) {
+        const axiosError = error as {
+          response?: { data?: { message?: string } };
+        };
+        const msg =
+          axiosError.response?.data?.message || "Erro ao fazer login.";
+        alert(msg);
+      } else {
+        alert("Erro inesperado. Tente novamente.");
+      }
     }
   };
 
@@ -85,10 +107,25 @@ const Login = () => {
 
         <StyleInput
           label="Senha"
-          type="password"
+          type={showPassword ? "text" : "password"}
           value={password}
           onChangeValue={(event) => setPassword(event.target.value)}
           validate={validateRequired}
+          iconRight={
+            <button
+              type="button"
+              onClick={() => setShowPassword(!showPassword)}
+              style={{
+                background: "none",
+                border: "none",
+                padding: 0,
+                margin: 0,
+                cursor: "pointer",
+              }}
+            >
+              {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+            </button>
+          }
         />
 
         <StyleButton type="submit" bgColor="rgb(239, 150, 150)">

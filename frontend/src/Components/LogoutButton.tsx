@@ -15,7 +15,7 @@ const LogoutButton = () => {
     <button
       onClick={handleLogout}
       style={{
-        backgroundColor: "#4A90E2",
+        backgroundColor: "red",
         color: "#fff",
         padding: "10px 20px",
         border: "none",
