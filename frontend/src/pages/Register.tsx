@@ -28,11 +28,6 @@ const Register = () => {
     return undefined;
   };
 
-  // const ValidateCPF = (value: string): string | undefined => {
-  //   if (!ValidateCPF(value)) return "CPF inválido";
-  //   return undefined;
-  // };
-
   const formatCpf = (value: string): string => {
     return value
       .replace(/\D/g, "")

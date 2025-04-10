@@ -1,10 +1,11 @@
 import { useState } from "react";
 import { useNavigate } from "react-router";
-import { validateCPF, validatePasswordStrength } from "../../utils/ValidateCPF";
 import api from "../../services/api";
 import StyleInput from "../../components/StyleInput";
 import StyleButton from "../../components/StyleButton";
 import { useUser } from "../../contexts/UserContext";
+import { ValidateCPF } from "../../utils/ValidateCPF";
+import { ValidatePasswordStrength } from "../../utils/ValidatePasswordStrength";
 
 const EditUser = () => {
   const { user, setUser } = useUser();
@@ -20,12 +21,12 @@ const EditUser = () => {
   const handleSubmit = async () => {
     setError("");
 
-    if (!validateCPF(cpf)) {
+    if (!ValidateCPF(cpf)) {
       setError("CPF inválido.");
       return;
     }
 
-    if (password && !validatePasswordStrength(password)) {
+    if (password && !ValidatePasswordStrength(password)) {
       setError("A senha deve ter pelo menos 8 caracteres, letras e números.");
       return;
     }
@@ -64,7 +65,7 @@ const EditUser = () => {
         label="CPF"
         value={cpf}
         onChangeValue={(e) => setCpf(e.target.value)}
-        validate={(value) => (!validateCPF(value) ? "CPF inválido" : undefined)}
+        validate={(value) => (!ValidateCPF(value) ? "CPF inválido" : undefined)}
       />
 
       <StyleInput
@@ -81,7 +82,7 @@ const EditUser = () => {
         onChangeValue={(e) => setPassword(e.target.value)}
         placeholder="Deixe em branco para não alterar"
         validate={(value) =>
-          value && !validatePasswordStrength(value) ? "Senha fraca" : undefined
+          value && !ValidatePasswordStrength(value) ? "Senha fraca" : undefined
         }
       />
 
